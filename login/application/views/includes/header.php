@@ -139,6 +139,19 @@
             </li>
 
 
+            <?php elseif ( $role == 6 ) : ?>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-id-card-o"></i><span>Passport Options</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+              <li><a href="<?php echo base_url(); ?>passports/delivery"><i class="fa fa-circle-o"></i>  Delivery</a></li>         
+              </ul>
+            </li>
 
             
             
@@ -270,6 +283,7 @@
             <?php
             }
             ?>
+            <?php if($role != 6){ ?>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
@@ -311,6 +325,7 @@
                 </li>         
               </ul>
             </li>
+            <?php } ?> 
             
             
             
