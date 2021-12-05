@@ -151,6 +151,7 @@ $uid = $user_id;
                         <th>CPR</th>
                         <th>Mobile Number</th>
                         <th>Passport Type</th>
+                        <th>Embassy Passport SL.</th>
                         <th class="text-center">Actions</th>
                         <th>Remarks</th>
                     </tr>
@@ -189,7 +190,8 @@ $uid = $user_id;
                         elseif ( $type == 'manual') { echo 'Manual Passport'; }
                         ?>
                         </td>
-                        
+                        <td><?php echo $record->embassy_passport_sl ?></td>
+
                         <td class="text-center">
                            <?php if ( $record->is_delivered > 0 ) : ?>
                            

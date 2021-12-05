@@ -148,7 +148,7 @@ $uid = $user_id;
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     
-                   <form action="<?php echo base_url(); ?>passports/receive_passport/<?php echo $type; ?>/?id=" method="post">
+                   <!-- <form action="<?php echo base_url(); ?>passports/receive_passport/<?php echo $type; ?>/?id=" method="post"> -->
                       
                   <center><button type="submit" class=" btn btn-success" style="text-align:center"> Receive To Embassy </button> 
                   </center>
@@ -161,6 +161,7 @@ $uid = $user_id;
                         <th>Mobile Number</th>
                         <th>Passport Type</th>
                         <th class="text-center">Actions</th>
+                        <th>Embassy Passport SL</th>
                     </tr>
                     
                     
@@ -213,6 +214,14 @@ $uid = $user_id;
                           <a class="btn btn-sm btn-danger" href="javascript:void(0);" title="Pending Receive"><i class="fa fa-clock-o"></i> Pending Receieve </a>
                            <?php endif; ?>
                         </td>
+
+                        <td>
+                          <form action="<?php echo base_url(); ?>/embassy_passport_sl" method="POST">
+                              <input type="text" class="form-control" id="embassy_passport_sl" name="embassy_passport_sl" value="<?php echo $record->embassy_passport_sl; ?>">
+                              <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $record->id; ?>">
+                              <input type="hidden" class="form-control" id="type" name="type" value="<?php echo $type; ?>">
+                          </form>
+                        </td>
                     </tr>
                     <?php
                         }
@@ -220,7 +229,7 @@ $uid = $user_id;
                     ?>
                   </table>
                   
-                  </form>
+                  <!-- </form> -->
                   
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">

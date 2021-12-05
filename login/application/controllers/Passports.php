@@ -746,6 +746,36 @@ public function add_other(){
         redirect($_SERVER['HTTP_REFERER']);
     }
 
+    public function embassy_passport_sl_change()
+    {
+        $id = $this->input->post('id');
+        $embassy_passport_sl = $this->input->post('embassy_passport_sl');
+        $type = $this->input->post('type');
+
+        $type = isset($type) ? $type : '';
+
+        if ($type == 'lost'){
+            $table = 'lost_passports';
+        }
+        elseif ($type == 'extend'){
+            $table = 'extending_passports';
+        }
+        elseif ($type == 'manual'){
+            $table = 'manual_passports';
+        }
+
+        $this->db->where('id', $id);
+        $result = $this->db->update($table, ['embassy_passport_sl' => $embassy_passport_sl ] );
+
+        if ( $result == TRUE ){
+            $this->session->set_flashdata('success', 'Embassy Passport SL. updated successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Failed to Update Embassy Passport SL.');
+        }
+
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
 
 
  /*   public function signin()
