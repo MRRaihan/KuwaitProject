@@ -95,4 +95,5 @@ $route['createPasswordUser'] = "login/createPasswordUser";
 
 
 $route['remarks'] = 'Passports/remarks_change';
+$route['embassy_passport_sl'] = 'Passports/embassy_passport_sl_change';
 
