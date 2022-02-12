@@ -215,23 +215,22 @@ $remarks = array(
                         <td>
                           <?php if ( $record->remarks != null){
                             ?>
-                            <span class="badge badge-pill
+                            <span class="label label-pill
                               <?php 
                                 if($record->remarks == 0){
-                                  echo 'badge-success';
+                                  echo 'label-success';
                                 } 
-                                elseif($record->remarks == 1){
-                                  echo 'badge-danger';
+                                if($record->remarks == 1){
+                                  echo 'label-danger';
                                 } 
-                                elseif($record->remarks == 2){
-                                  echo 'badge-warning';
+                                if($record->remarks == 2){
+                                  echo 'label-warning';
                                 } 
-                                elseif($record->remarks == 3){
-                                  echo 'badge-warning';
-                                } 
-                                else{
-                                  echo 'badge-secondary';
-                                } 
+                                if($record->remarks == 3){
+                                  echo 'label-warning';
+                                }
+
+                                
                               ?>">
 
                               <?php 
@@ -242,7 +241,8 @@ $remarks = array(
                                 }
                               ?>
 
-                            </span>
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+
 
                           <?php
                           }
@@ -275,7 +275,7 @@ $remarks = array(
 
                                   foreach ($remarks as $key => $remark){
                                 ?>
-                                  <option value="<?php echo $key;  ?>" <?php if($record->remarks == 0 || $record->remarks == 1 || $record->remarks == 2 || $record->remarks == 3){ 
+                                  <option value="<?php echo $key;  ?>" <?php if($record->remarks === '0' || $record->remarks === '1' || $record->remarks === '2' || $record->remarks === '3'){ 
                                     if($record->remarks != null && $record->remarks == $key){
                                       echo "selected";
                                     }
@@ -347,6 +347,8 @@ $remarks = array(
                         // Swal.fire(
                         //     'Remarks !', 'Remarks Added Successfully. ' + data.message, 'success'
                         // )
+
+                        console.log('monir-data:'+data);
                         setTimeout(function() {
                             location.reload(data.url);
                         }, 800); //
@@ -394,6 +396,8 @@ $remarks = array(
                         // Swal.fire(
                         //     'Remarks !', 'Remarks Added Successfully. ' + data.message, 'success'
                         // )
+
+                        console.log('monir-data:'+data);
                         setTimeout(function() {
                             location.reload(data.url);
                         }, 800); //

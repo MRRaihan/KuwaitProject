@@ -763,12 +763,13 @@ public function add_other(){
         //     'url' => $_SERVER['HTTP_REFERER'],
         //     'message' => 'Remarks updated successfully'
         // ]);
-
-        echo json_encode([
+        header('Content-Type: application/json');
+      $returndata =  [
             'type' => 'success',
             'url' => $_SERVER['HTTP_REFERER'],
             'message' => 'Remarks updated successfully'
-        ]);
+      ];
+      echo json_encode($returndata);
     }
 
     public function embassy_passport_sl_change()
