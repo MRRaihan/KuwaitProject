@@ -4,6 +4,13 @@ $uid = '';
 if ( $role !== ROLE_ADMIN && $role !== '5' && $role !== '2' ) {
 $uid = $user_id;
 }
+$remarks = array(
+  "Call Received",
+  "Not Received",
+  "Call Busy",
+  "Phone Off",
+  "Others",
+);
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -206,11 +213,78 @@ $uid = $user_id;
                            <?php endif; ?>
                         </td>
                         <td>
-                            <form action="<?php echo base_url(); ?>remarks" method="post">
-                                <input type="text" class="form-control" id="remarks" name="remarks" value="<?php echo $record->remarks; ?>">
+                          <?php if ( $record->remarks != null){
+                            ?>
+                            <span class="label label-pill
+                              <?php 
+                                if($record->remarks == 0){
+                                  echo 'label-success';
+                                } 
+                                if($record->remarks == 1){
+                                  echo 'label-danger';
+                                } 
+                                if($record->remarks == 2){
+                                  echo 'label-warning';
+                                } 
+                                if($record->remarks == 3){
+                                  echo 'label-warning';
+                                }
+
+                                
+                              ?>">
+
+                              <?php 
+                                if($record->remarks === '0' || $record->remarks === '1' || $record->remarks === '2' || $record->remarks === '3'){
+                                  echo $remarks[$record->remarks];
+                                }else{
+                                  echo $record->remarks;
+                                }
+                              ?>
+
+                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                          <?php
+                          }
+                          ?>
+                            <!-- <form action="<?php echo base_url(); ?>remarks" method="post"> -->
+                                <!-- <input type="text" class="form-control" id="remarks" name="remarks" value="<?php echo $record->remarks; ?>">
                                 <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $record->id; ?>">
                                 <input type="hidden" class="form-control" id="type" name="type" value="<?php echo $type; ?>">
-                            </form>
+                            </form> -->
+
+                                <input type="hidden" class="form-control p_id" value="<?php echo $record->id; ?>">
+                                <input type="hidden" class="form-control option" value="<?php echo $type; ?>">
+
+                            <div class="other-div" style="display: none">
+
+                                <label>
+                                <input id="remarks_other" class="remarks_other form-control" name="remarks_other">
+                                </label>
+                            </div>
+
+                            <select class="remarks mySelect" name="remarks" id="mySelect" onChange="defualtRemarks('<?php echo $type; ?>','<?php echo $record->id; ?>',this)">
+                                <option value="-1">Choose Remark</option>
+
+                                <?php
+
+                                  $is_input = false;
+                                  if($record->remarks == '0' || $record->remarks == '1' || $record->remarks == '2' || $record->remarks == '3'){
+                                    $is_input = true;
+                                  } 
+
+                                  foreach ($remarks as $key => $remark){
+                                ?>
+                                  <option value="<?php echo $key;  ?>" <?php if($record->remarks === '0' || $record->remarks === '1' || $record->remarks === '2' || $record->remarks === '3'){ 
+                                    if($record->remarks != null && $record->remarks == $key){
+                                      echo "selected";
+                                    }
+                                  }  ?>
+                                    ><?php echo $remark ?></option>
+                                <?php 
+                                  }
+                                ?>
+                            </select>
 
                         </td>
                         </tr>
@@ -235,13 +309,109 @@ $uid = $user_id;
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('input').keyup(function(event) {
-            if (event.which === 13)
-            {
-                event.preventDefault();
-                $('form').submit();
-            }
-        });
+    // $(document).ready(function() {
+    //     $('input').keyup(function(event) {
+    //         if (event.which === 13)
+    //         {
+    //             event.preventDefault();
+    //             $('form').submit();
+    //         }
+    //     });
+    // });
+
+
+    function defualtRemarks(option,id,select) {
+       var mySelect = $(select).val();
+        // console.log(mySelect);
+        if (mySelect == '4') {
+            $(select).parent().find('.other-div').attr('style', 'display:block;');
+        }else{
+            $(select).parent().find('.other-div').attr('style', 'display:none;');
+        }
+        var url = "<?php echo base_url(); ?>remarks";
+        
+        var data = "option="+option+"&id="+id+"&remarks="+mySelect;
+
+        // console.log(data)
+
+        if (mySelect != 4) {
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: data,
+                // headers: {
+                //     'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                // },
+                success: function(data) {
+                    if (data.type == 'success') {
+                        // Swal.fire(
+                        //     'Remarks !', 'Remarks Added Successfully. ' + data.message, 'success'
+                        // )
+
+                        console.log('monir-data:'+data);
+                        setTimeout(function() {
+                            location.reload(data.url);
+                        }, 800); //
+                    } else {
+                        // Swal.fire(
+                        //     'Wrong !',
+                        //     'Something going wrong. ' + data.message,
+                        //     'warning'
+                        // )
+                    }
+                },
+            })
+        }
+
+
+    }
+
+    $('.remarks_other').keypress(function(e) {
+        
+            if (e.keyCode == 13) {
+
+                e.preventDefault();
+
+                var id = $(this).parent().parent().parent().find('.p_id').val();
+                var option = $(this).parent().parent().parent().find('.option').val();
+                var mySelect = $(this).val();
+
+                console.log(id)
+                console.log('---'+option+'----')
+                console.log(mySelect)
+        
+              var url = "<?php echo base_url(); ?>remarks";
+              var data = "option="+option+"&id="+id+"&remarks="+mySelect;
+
+
+              $.ajax({
+                method: 'POST',
+                url: url,
+                data: data,
+                // headers: {
+                //     'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                // },
+                success: function(data) {
+                    if (data.type == 'success') {
+                        // Swal.fire(
+                        //     'Remarks !', 'Remarks Added Successfully. ' + data.message, 'success'
+                        // )
+
+                        console.log('monir-data:'+data);
+                        setTimeout(function() {
+                            location.reload(data.url);
+                        }, 800); //
+                    } else {
+                        // Swal.fire(
+                        //     'Wrong !',
+                        //     'Something going wrong. ' + data.message,
+                        //     'warning'
+                        // )
+                    }
+                },
+            })
+        }
     });
+
+
 </script>

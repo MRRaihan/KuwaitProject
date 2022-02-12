@@ -718,9 +718,22 @@ public function add_other(){
 
     public function remarks_change()
     {
+
+        // $type = explode('&', $data)[0] ? explode('&', $data)[0] : '';
+        // $id = explode('&', $data)[1] ? explode('&', $data)[1] : '';
+        // $remarks = explode('&', $data)[2];
+
+
+        
+        
+        $type = $this->input->post('option');
         $id = $this->input->post('id');
         $remarks = $this->input->post('remarks');
-        $type = $this->input->post('type');
+        // return $id;
+         
+        // return json_encode([
+        //     'type' => $type
+        // ]);
 
         $type = isset($type) ? $type : '';
 
@@ -743,7 +756,20 @@ public function add_other(){
             $this->session->set_flashdata('error', 'Failed to Update Remarks');
         }
 
-        redirect($_SERVER['HTTP_REFERER']);
+        // redirect($_SERVER['HTTP_REFERER']);
+
+        // return response()->json([
+        //     'type' => 'success',
+        //     'url' => $_SERVER['HTTP_REFERER'],
+        //     'message' => 'Remarks updated successfully'
+        // ]);
+        header('Content-Type: application/json');
+      $returndata =  [
+            'type' => 'success',
+            'url' => $_SERVER['HTTP_REFERER'],
+            'message' => 'Remarks updated successfully'
+      ];
+      echo json_encode($returndata);
     }
 
     public function embassy_passport_sl_change()
