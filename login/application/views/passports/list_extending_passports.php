@@ -69,10 +69,10 @@
               <button type="submit" class="btn btn-md btn-primary btn-block searchList pull-right"><i class="fa fa-search" aria-hidden="true"></i></button> 
             </div>
             </form>
-            
+
           <form action="" method="get" id="searchList">
             <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 form-group">
-              <input id="searchText" type="text" name="bd_mobile" value="<?php echo isset($_GET['bd_mobile']) ? $_GET['bd_mobile'] : ''; ?>" class="form-control" placeholder="Search by Mobile Number">
+              <input id="searchText" type="text" name="ps_number" value="<?php echo isset($_GET['ps_number']) ? $_GET['ps_number'] : ''; ?>" class="form-control" placeholder="Search by MRP Passport Number">
             </div>
             <div class="col-lg-1 col-md-1 col-sm-6 col-xs-6 form-group">
               <button type="submit" class="btn btn-md btn-primary btn-block searchList pull-right"><i class="fa fa-search" aria-hidden="true"></i></button> 
@@ -140,6 +140,7 @@
                         <th>Name</th>
                         <th>CPR</th>
                         <th>Mobile Number</th>
+                        <th>MRP Passport Number</th>
                         <th>Total Fee</th>
                         <th>EMS</th>
                         <th class="text-center">Actions</th>
@@ -173,6 +174,7 @@
                         <td><?php echo $record->full_name ?></td>
                         <td><?php echo $record->cpr ?></td>
                         <td><?php echo $record->bhr_mobile ?></td>
+                        <td><?php echo $record->ps_number ?></td>
                         <?php 
                         $v = ( $record->salary == 1) ? 4 : 4; 
                         $e = ( $record->salary == 1) ? 13 : 41.50;

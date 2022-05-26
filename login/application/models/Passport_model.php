@@ -105,6 +105,9 @@ class Passport_model extends CI_Model
         if ( !empty( $_GET['cpr'] ) ){
             $this->db->where('cpr', $_GET['cpr']);
         }
+        if ( !empty( $_GET['ps_number'] ) ){
+            $this->db->where('ps_number', $_GET['ps_number']);
+        }
         if ( !empty( $_GET['bd_mobile'] ) ){
             $this->db->where('bd_mobile', $_GET['bd_mobile']);
         }
@@ -136,6 +139,9 @@ class Passport_model extends CI_Model
         }
         if ( !empty( $_GET['cpr'] ) ){
             $this->db->where('cpr', $_GET['cpr']);
+        }
+        if ( !empty( $_GET['ps_number'] ) ){
+            $this->db->where('ps_number', $_GET['ps_number']);
         }
         if ( !empty( $_GET['bd_mobile'] ) ){
             $this->db->where('bd_mobile', $_GET['bd_mobile']);
